@@ -28,7 +28,7 @@ public class movement : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (firstinput == true && god.ready==3)
+        if (firstinput == true && god.ready==1)
         {
             selection = Input.GetButtonDown(keys[2]) ? 1 : selection;
             selection = Input.GetButtonDown(keys[3]) ? 2 : selection;
