@@ -12,7 +12,10 @@ public class WindowGraph : MonoBehaviour
     private void Awake()
     {
         graphContainer = transform.Find("GraphContainer").GetComponent<RectTransform>();
+    }
 
+    private void Update()
+    {
         ShowGraph(valueList);
     }
 
@@ -40,5 +43,4 @@ public class WindowGraph : MonoBehaviour
             CreateCircle(new Vector2(xPosition, yPosition));
         }
     }
-
 }
