@@ -12,11 +12,11 @@ public class WindowGraph : MonoBehaviour
     private void Awake()
     {
         graphContainer = transform.Find("GraphContainer").GetComponent<RectTransform>();
+        ShowGraph(valueList);
     }
 
     private void Update()
     {
-        ShowGraph(valueList);
     }
 
     private void CreateCircle(Vector2 anchoredPosition)
