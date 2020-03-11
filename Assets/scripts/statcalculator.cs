@@ -5,25 +5,28 @@ using UnityEngine;
 public class statcalculator : MonoBehaviour
 {
   //this script calculates the stats of each player
-  [SerializeField] int population;
-   int malicious;
-   int benovalence;
-   int mysterious;
+  public int population;
+  public int malicious;
+  public int benovalence;
+  public int mysterious;
   [SerializeField] float multiplier;
   [SerializeField] int variable;
-   float container;
-  [SerializeField] public int selection;
+  float container;
+  public int selection;
   [SerializeField] int selector;
-    float totalfbistat;
+  float totalfbistat;
 
     public void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("area"))
         {
           population =  other.gameObject.GetComponent<populationcounter>().population;
-          multiplier = other.gameObject.GetComponent<populationcounter>().multiplier;
+          multiplier = other.gameObject.GetComponent<populationcounter>().catalyst;
+            totalfbistat = other.gameObject.GetComponent<populationcounter>().fbiareastat;
         }
     }
+
+    
 
     public void sup()
     {

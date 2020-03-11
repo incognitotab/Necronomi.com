@@ -78,6 +78,6 @@ public class selection : MonoBehaviour
 
         judge = Mathf.Clamp(judge, 0, select.Count);
         
-        Debug.Log(judge);
+        
     }
 }
