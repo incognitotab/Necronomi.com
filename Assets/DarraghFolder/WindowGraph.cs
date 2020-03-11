@@ -21,6 +21,15 @@ public class WindowGraph : MonoBehaviour
         ShowGraph(valueList);
     }
 
+    private RectTransform graphContainer;
+    public List<int> valueList = new List<int>() {};
+
+    private void Awake()
+    {
+        graphContainer = transform.Find("GraphContainer").GetComponent<RectTransform>();
+        ShowGraph(valueList);
+    }
+
     private void CreateCircle(Vector2 anchoredPosition)
     {
         GameObject gameObject = new GameObject("circle", typeof(Image));
@@ -45,5 +54,4 @@ public class WindowGraph : MonoBehaviour
             CreateCircle(new Vector2(xPosition, yPosition));
         }
     }
-
 }
