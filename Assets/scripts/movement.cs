@@ -29,8 +29,7 @@ public class movement : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("area"))
-        {
+       
             if (firstinput == true && god.ready ==3)
             {
                 sprite.color = Color.green;
@@ -41,7 +40,7 @@ public class movement : MonoBehaviour
                 if (selection > 0)
                 {
                     gameObject.GetComponent<statcalculator>().selection = selection;
-                    collision.gameObject.GetComponent<populationcounter>().used();
+                   // collision.gameObject.GetComponent<populationcounter>().used();
                     gameObject.GetComponent<statcalculator>().sup();
                     god.turnchange();
                     graph.SetActive(true);
@@ -51,13 +50,14 @@ public class movement : MonoBehaviour
 
                 }
             }
-            else if (Input.GetButtonDown(keys[2]))
+            else if (Input.GetButtonDown(keys[2]) && firstinput==false)
             {
-                firstinput = true;
                 god.ready++;
+                firstinput = true;
+                
 
             }
-        }
+        
     }
 
     public void OnTriggerExit2D(Collider2D collision)
