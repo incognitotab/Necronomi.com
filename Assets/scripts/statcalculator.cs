@@ -14,7 +14,12 @@ public class statcalculator : MonoBehaviour
   float container;
   public int selection;
   [SerializeField] int selector;
+  SpriteRenderer sprite;
   float totalfbistat;
+    public void Start()
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
 
     public void OnTriggerEnter2D(Collider2D other)
     {
@@ -22,7 +27,8 @@ public class statcalculator : MonoBehaviour
         {
           population =  other.gameObject.GetComponent<populationcounter>().population;
           multiplier = other.gameObject.GetComponent<populationcounter>().catalyst;
-            totalfbistat = other.gameObject.GetComponent<populationcounter>().fbiareastat;
+          totalfbistat = other.gameObject.GetComponent<populationcounter>().fbiareastat;
+            sprite.color = Color.red;
         }
     }
 

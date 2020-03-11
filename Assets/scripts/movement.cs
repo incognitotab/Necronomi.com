@@ -29,38 +29,47 @@ public class movement : MonoBehaviour
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-        if (firstinput == true)
+        if (collision.gameObject.CompareTag("area"))
         {
-            selection = Input.GetButtonDown(keys[2]) ? 1 : selection;
-            selection = Input.GetButtonDown(keys[3]) ? 2 : selection;
-            selection = Input.GetButtonDown(keys[4]) ? 3 : selection;
-
-            if (selection > 0)
+            if (firstinput == true && god.ready ==3)
             {
-                gameObject.GetComponent<statcalculator>().selection = selection;
-                collision.gameObject.GetComponent<populationcounter>().used();
-                gameObject.GetComponent<statcalculator>().sup();
-                god.turnchange();
-                graph.SetActive(true);
-                firstinput = false;
-                selection = -1;
-                
+                sprite.color = Color.green;
+                selection = Input.GetButtonDown(keys[2]) ? 1 : selection;
+                selection = Input.GetButtonDown(keys[3]) ? 2 : selection;
+                selection = Input.GetButtonDown(keys[4]) ? 3 : selection;
+
+                if (selection > 0)
+                {
+                    gameObject.GetComponent<statcalculator>().selection = selection;
+                    collision.gameObject.GetComponent<populationcounter>().used();
+                    gameObject.GetComponent<statcalculator>().sup();
+                    god.turnchange();
+                    graph.SetActive(true);
+                    sprite.color = Color.white;
+                    firstinput = false;
+                    selection = -1;
+
+                }
             }
-        }
-        else if (Input.GetButtonDown(keys[2]))
-        {
-            firstinput = true;
-            god.ready++;
-            
+            else if (Input.GetButtonDown(keys[2]))
+            {
+                firstinput = true;
+                god.ready++;
+
+            }
         }
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        firstinput = false;
-        selection = 0;
-        graph.SetActive(false);
-        god.ready = firstinput == true ? god.ready - 1 : god.ready;
+        if (collision.gameObject.CompareTag("area"))
+        {
+            god.ready = firstinput == true ? god.ready - 1 : god.ready;
+            firstinput = false;
+            selection = 0;
+            graph.SetActive(false);
+            sprite.color = Color.white;
+        }
     }
     
     // Update is called once per frame

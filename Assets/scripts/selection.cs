@@ -22,6 +22,7 @@ public class selection : MonoBehaviour
     int judge;
     int resize;
     bool reset;
+   [SerializeField] GameObject target;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,7 +50,7 @@ public class selection : MonoBehaviour
         if (Input.GetAxisRaw(buttons[0])!=0 && reset == true)
         {
             judge +=1* Mathf.RoundToInt( Input.GetAxisRaw(buttons[0]));
-
+            target.transform.position = player[judge].transform.position + Vector3.up;
             reset = false;
         }
 
@@ -69,7 +70,7 @@ public class selection : MonoBehaviour
                 player[judge].GetComponent<movement>().keys[i] = buttons[i];
 
             }
-            
+            Destroy(target);
             player[judge].GetComponent<movement>().player1 = true;
             Destroy(gameObject);
         }
