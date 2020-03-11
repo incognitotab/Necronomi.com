@@ -11,8 +11,25 @@ public class godscript : MonoBehaviour
     int maxfbistat;
     [SerializeField] List<statcalculator> players = new List<statcalculator>();
     [SerializeField] populationcounter[] arealist = new populationcounter[1];
+    [SerializeField] Sprite[] backgrounds = new Sprite[1];
+    [SerializeField] Sprite[] bensprites = new Sprite[1];
+    [SerializeField] Sprite[] malsprites = new Sprite[1];
+    [SerializeField] Sprite[] mysprite = new Sprite[1];
+    [SerializeField] SpriteRenderer[] backroundholder = new SpriteRenderer[3];
+    [SerializeField] SpriteRenderer[] peopleholder = new SpriteRenderer[3];
+    [SerializeField] SpriteRenderer[] monsterholder = new SpriteRenderer[3];
 
     // Start is called before the first frame update
+    public void spritechooser()
+    {
+        for(int i = 0; i > arealist.Length;i++)
+        {
+            if (arealist[i].counter.Count > 0)
+            {
+               
+            }
+        }
+    }
 
     public void monsterfight(populationcounter fightplace)
     {
