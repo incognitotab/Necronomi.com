@@ -14,6 +14,7 @@ public class populationcounter : MonoBehaviour
    public int fbiareastat;
    [SerializeField] int fbistatincrease;
    [SerializeField] int maxfbistat;
+    [SerializeField] int place;
    [SerializeField] godscript god;
     // Start is called before the first frame update
     public void Start()
@@ -36,10 +37,12 @@ public class populationcounter : MonoBehaviour
         population += Mathf.RoundToInt( minpopulation/2 * catalyst);
         catalyst = catalyst + 0.01f;
         fbiareastat = fbiareastat + fbistatincrease < maxfbistat ? fbiareastat + fbistatincrease : maxfbistat;
-        if (counter.Count > 1)
-        {
-            god.monsterfight(this);
-        }
+        god.spritechooser(place);
+        /*if (counter.Count > 1)
+          {
+              god.monsterfight(this,place);
+          }*/
+        
         experienced = true;
     }
 

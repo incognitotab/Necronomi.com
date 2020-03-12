@@ -18,53 +18,93 @@ public class movement : MonoBehaviour
    [SerializeField] int selection;
    [SerializeField] godscript god;
    [SerializeField] GameObject graph;
-    bool firstinput;
+   [SerializeField] movement playera, playerb;
+   bool firstinput;
+    [SerializeField] int decider;
+   public bool decisionmade;
+    public GameObject mediascreen;
+    public GameObject background;
     
     public void Start()
     {
         player1 = false;
         sprite = GetComponent<SpriteRenderer>();
         selection = 0;
+        decisionmade = false;
+        
+        
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 9)
+        {
+            god.ready++;
+        }
     }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
-       
-            if (firstinput == true && god.ready ==3)
+        if (player1 == true && collision.gameObject.layer==9)
+        {
+            if (firstinput == true && god.ready == 3)
             {
                 sprite.color = Color.green;
-                selection = Input.GetButtonDown(keys[2]) ? 1 : selection;
-                selection = Input.GetButtonDown(keys[3]) ? 2 : selection;
-                selection = Input.GetButtonDown(keys[4]) ? 3 : selection;
+                if (selection == 0)
+                {
+                    selection = Input.GetButtonDown(keys[2]) ? 1 : selection;
+                    selection = Input.GetButtonDown(keys[3]) ? 2 : selection;
+                    selection = Input.GetButtonDown(keys[4]) ? 3 : selection;
+                }
+                if(selection > 0)
+                {
+                    decisionmade = true;
+                }
 
-                if (selection > 0)
+                if (decisionmade==true &&playera.decisionmade==true&&playerb.decisionmade==true)
                 {
                     gameObject.GetComponent<statcalculator>().selection = selection;
-                   // collision.gameObject.GetComponent<populationcounter>().used();
+                    collision.gameObject.GetComponent<populationcounter>().used();
                     gameObject.GetComponent<statcalculator>().sup();
                     god.turnchange();
                     graph.SetActive(true);
                     sprite.color = Color.white;
+                    god.read = 3;
                     firstinput = false;
                     selection = -1;
 
                 }
             }
-            else if (Input.GetButtonDown(keys[2]) && firstinput==false)
+            else if (Input.GetButtonDown(keys[2]) && firstinput == false && decisionmade==false)
             {
-                god.ready++;
+               
                 firstinput = true;
-                
-
             }
+            if (god.read==0 && firstinput==false)
+            {
+                decisionmade = false;
+               
+            }
+            if (graph.activeSelf == true)
+            {
+                bool trigger=false;
+                if (Input.GetButtonDown(keys[2]) && god.read == decider)
+                {
+                    mediascreen.SetActive(false);
+                    god.read--;
+                    trigger = god.read == 0 ? false : true;
+                    background.SetActive(trigger);
+                }
+            }
+        }
         
     }
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("area"))
+        if (collision.gameObject.layer==9)
         {
-            god.ready = firstinput == true ? god.ready - 1 : god.ready;
+            god.ready--;
             firstinput = false;
             selection = 0;
             graph.SetActive(false);
@@ -75,6 +115,12 @@ public class movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        god.ready = Mathf.Clamp(god.ready, 0, 3);
+        if (graph.activeSelf==false)
+        {
+            mediascreen.SetActive(true);
+        }
+        //Physics2D.IgnoreLayerCollision(0, 9, true);
         if (player1 == true)
         {
             Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
@@ -91,6 +137,6 @@ public class movement : MonoBehaviour
     public void FixedUpdate()
     {
         transform.position =transform.position+ move * Time.fixedDeltaTime * 5;
-        Debug.Log(sprite.size.x);
+        
     }
 }
