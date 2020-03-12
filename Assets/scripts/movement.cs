@@ -35,13 +35,7 @@ public class movement : MonoBehaviour
         
     }
 
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.layer == 9)
-        {
-            god.ready++;
-        }
-    }
+    
 
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -75,10 +69,11 @@ public class movement : MonoBehaviour
 
                 }
             }
-            else if (Input.GetButtonDown(keys[2]) && firstinput == false && decisionmade==false)
+            else if (Input.GetButtonDown(keys[2]) && firstinput == false )
             {
                
                 firstinput = true;
+                god.ready++;
             }
             if (god.read==0 && firstinput==false)
             {
@@ -119,6 +114,7 @@ public class movement : MonoBehaviour
         if (graph.activeSelf==false)
         {
             mediascreen.SetActive(true);
+            background.SetActive(true);
         }
         //Physics2D.IgnoreLayerCollision(0, 9, true);
         if (player1 == true)
